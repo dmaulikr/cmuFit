@@ -1,4 +1,4 @@
 cmuFitness
 ==========
 
-a web app for the CMU Fitness Challenge
+A web app for the CMU Fitness Challenge.
