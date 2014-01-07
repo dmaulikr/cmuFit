@@ -2,25 +2,27 @@
  * Set up and expose routes
  */
 
-var users = require('./services/UserAuthService'),
+var UserAuthService = require('./services/UserAuthService'),
     auth = require('./middlewares/authorization')
 
 
 module.exports = function (app, passport) {
 
   // user routes
-  app.get('/home', users.home)
-  app.get('/login', users.login)
-  app.get('/signup', users.signup)
-  app.get('/logout', users.logout)
-  app.get('/dashboard', auth.requiresLogin, users.dashboard)
+  app.get('/home', UserAuthService.getBaseTemplate)
+  app.get('/login', UserAuthService.getBaseTemplate)
+  app.get('/signup', UserAuthService.getBaseTemplate)
+  app.get('/dashboard', auth.requiresLogin, UserAuthService.getBaseTemplate)
+  app.get('/mytracker', auth.requiresLogin, UserAuthService.getBaseTemplate)
+  app.post('/logout', UserAuthService.logoutUser)
 
-  // login and sign up routes
-  app.post('/api/users', users.createNewUser)
-  app.post('/users/session',
+  //login and sign up routes
+  app.post('/api/users', UserAuthService.createNewUser)
+  //passport.authenticate middleware invokes req.login()
+  app.post('/api/users/session',
     passport.authenticate('local', {
       failureRedirect: '/login',
-      failureFlash: 'Invalid email or password.'
-    }), users.session)
+      failureFlash: true
+    }), UserAuthService.session)
 
 }

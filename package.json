@@ -1,7 +1,7 @@
 {
   "name": "cmufit",
   "version": "0.0.1",
-  "private": true, //npm will not publish the package
+  "private": true,  
   "dependencies": {
     "express": "3.4.4",
     "mongodb": ">= 0.9.6-7",
@@ -17,5 +17,3 @@
     "grunt-html2js": "~0.1.8"
   }
 }
-
-//has some extra - nodeunit, uglify, edit in the future as needed.

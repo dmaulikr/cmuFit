@@ -1,6 +1,9 @@
-- if (isAuthenticated)
-  li
-    a(href="/logout", title="logout") Logout
-- else
-  li
-    a(href="/login", title="Login") Login
+div(ng-controller="AuthController")
+  - if (isAuthenticated)
+    li
+      a(href="", ng-click="logout()") Logout
+  - else
+    li
+      a(href="/login") Login
+    li
+      a(href="/signup") Sign Up

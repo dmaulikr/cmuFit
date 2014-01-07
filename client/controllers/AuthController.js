@@ -1,43 +1,31 @@
 angular.module('cmufit.auth', [])
-.controller('AuthController', function ($scope, $http, $location) {
+.controller('AuthController', function ($scope, $http, $location, $window) {
     $scope.user = { 'username': '', 'password': '', 'email': ''};
 
-    /* login with given username and password, indicates error if
-       bad username or password */
+    // login with given username and password
     $scope.login = function (user) {
-      $http.post('/users/session', user).success(function(data) {
-        if (data.error === 'username') {
-          window.console.log("bad username");
-        }
-        else if (data.error === 'password') {
-          window.console.log("bad password");
-        }
-        else {
-          $location.path('/dashboard');
+      $http.post('/api/users/session', user).success(function(data) {
           $scope.clearForm_();
-        }
+          $window.location.href = data.location;
         }).error(function(data) {
-        window.console.log(data);
+          window.console.log("error login", data);
       });
     };
 
-    /* change to actually logging out please <<<<< */
+    //Logout User (see header.jade)
     $scope.logout = function () {
-      $http.post('/api/logout', user).success(function(data) {
-        $scope.go('/home');
-        }).error(function(data) {
-          window.console.log("error on logout");
-      });
+      $http.post('/logout', {}).success(function(data) {
+          $window.location.href = '/home';
+        });
     };
 
+    //On success log the user in.
     $scope.signup = function (user) {
       $http.post('/api/users', user).success(function(data) {
-        window.console.log("registered");
-        window.console.log(data);
-        $scope.clearForm_();
+          $scope.clearForm_();
+          $window.location.href = '/dashboard';
         }).error(function(data) {
-          window.console.log("duplicate key error?");
-          window.console.log(data);
+          window.console.log("duplicate key error?", data);
       });
     };
 

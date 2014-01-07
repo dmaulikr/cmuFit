@@ -4,12 +4,13 @@
 
 
 /*
- *  Middleware for routing.
+ *  Middleware for routing. Store original url requested 
+ *  so that user can be redirected after authentication.
  */
 exports.requiresLogin = function (req, res, next) {
-  if (req.isAuthenticated()) return next()
-  if (req.method == 'GET') req.session.returnTo = req.originalUrl //*** fix?
-  res.redirect('/login')
+  if (req.isAuthenticated()) return next();
+  if (req.method == 'GET') req.session.returnTo = req.originalUrl; 
+  res.redirect('/login');
 }
 
 /*

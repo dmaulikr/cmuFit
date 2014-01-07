@@ -7,7 +7,7 @@ angular.module('cmufit', ['cmufit.templates', 'cmufit.auth'])
       when('/home', {templateUrl: '../client/templates/home.html'}).
       when('/dashboard', {templateUrl: '../client/templates/dashboard.html'}).
       when('/login', {controller:'AuthController', templateUrl: '../client/templates/login.html'}).
+      when('/mytracker', {controller: 'AuthController', templateUrl: '../client/templates/mytracker.html'}).
       when('/signup', {controller: 'AuthController', templateUrl: '../client/templates/signup.html'}). //dashboard page
       otherwise({redirectTo: '/home'});
-  })
-});
+  });
